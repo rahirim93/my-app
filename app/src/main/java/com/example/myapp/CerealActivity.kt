@@ -32,14 +32,14 @@ class CerealActivity : AppCompatActivity() {
         val water = (cereal * 1.555).toString()
 
         if (cereal != null) {
-            textViewWater.text = water
+            textViewWater.text = "Количество воды: $water"
         }
     }
     fun buttonCereal(view: android.view.View) {
 
         val cereal2 = (editTextCereal.text).toString().toInt()
 
-        val cerealReady = (cereal2 * 2.4).toString()
+        val cerealReady = (cereal2 * 2.4).toInt().toString()
 
         if (cereal2 != null) {
             textViewCereal.text = cerealReady

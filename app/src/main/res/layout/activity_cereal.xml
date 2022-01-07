@@ -40,6 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextNumber3" />
 
     <EditText
+        android:hint="Количество гречки"
         android:id="@+id/editTextNumber2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

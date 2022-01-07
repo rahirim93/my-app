@@ -26,7 +26,7 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextMoney"
-        tools:text="текст" />
+        tools:text="Денег в день" />
 
     <TextView
         android:id="@+id/textViewMoneyAMonth"
@@ -36,7 +36,7 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMoneyADay"
-        tools:text="текст"/>
+        tools:text="Денег в месяц"/>
 
     <Button
         android:id="@+id/button"
@@ -123,6 +123,7 @@
         app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 
     <TextView
+        tools:text="Сколько можно потратить"
         android:id="@+id/textViewMoneyAvailable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
