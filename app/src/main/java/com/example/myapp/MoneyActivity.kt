@@ -123,7 +123,11 @@ class MoneyActivity : AppCompatActivity() {
         val moneyWished = (editTextMoneyWished.text).toString().toInt() // Желаемая сумма в месяц
 
         if(moneyWished > 0) {
-            val moneyAvailable = (moneyWished - rentPay) / 31 * todayDay - money //Сколько можно потратить сегодня
+            val moneyAvailable = if (checkBox.isChecked) {
+                ((moneyWished - rentPay) / 31 * todayDay - money) + rentPay //Сколько можно потратить сегодня (вычет аренды)
+            } else {
+                (moneyWished - rentPay) / 31 * todayDay - money //Сколько можно потратить сегодня
+            }
             textViewMoneyAvailable.text = "Можно потратить: $moneyAvailable"
         }
 
