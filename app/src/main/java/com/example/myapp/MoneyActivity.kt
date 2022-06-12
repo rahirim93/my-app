@@ -12,7 +12,7 @@ import java.util.*
 
 class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
-    private lateinit var editTextMoney: EditText
+    private lateinit var editTextMoneyFact: EditText
     private lateinit var editTextMoneyWished: EditText
     private lateinit var editTextRent: EditText
 
@@ -38,7 +38,7 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
         //Подгрузка сохраненного состояния
         textViewPref.text = pref?.getInt("money", 0).toString()
-        editTextMoney.setText(pref?.getInt("money", 0).toString())
+        editTextMoneyFact.setText(pref?.getInt("money", 0).toString())
         editTextMoneyWished.setText(pref?.getInt("moneyWished", 0).toString())
         editTextRent.setText(pref?.getInt("rent", 0).toString())
 
@@ -73,15 +73,15 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         // Получаем арендную плату из editText
         val rent = (editTextRent.text).toString().toInt()
 
-        //Получение и приведение значения в поле к типу Int
-        val money = (editTextMoney.text).toString().toInt()
+        //Получение и приведение значения фактического потраченного количества денег в editText к типу Int
+        val money = (editTextMoneyFact.text).toString().toInt()
 
-        // Количество дней в месяце
+        // Количество дней в текущем месяце
         val countDayMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH)
 
-        //Денег в день
+        //Среднее количество денег которое тратилось в день до сегодняшнего дня
         val moneyOfDay = if (checkBox.isChecked) {  // Если квартплата уже внесена
-            (money - rent) / todayDay              // то вычитаем ее из суммы
+            (money - rent) / todayDay               // то вычитаем ее из суммы
         } else {
             money / todayDay                        // Если нет, то просто делим на количество дней
         }
@@ -97,14 +97,12 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
         if(moneyWished > 0) {
             val moneyAvailable = if (checkBox.isChecked) {
-                ((moneyWished - rent) / 31 * todayDay - money) + rent //Сколько можно потратить сегодня (вычет аренды)
+                ((moneyWished - rent) / countDayMonth * todayDay - money) + rent //Сколько можно потратить сегодня (вычет аренды)
             } else {
-                (moneyWished - rent) / 31 * todayDay - money //Сколько можно потратить сегодня
+                (moneyWished - rent) / countDayMonth * todayDay - money //Сколько можно потратить сегодня
             }
             textViewMoneyAvailable.text = "Можно потратить: $moneyAvailable"
         }
-
-
     }
 
     private fun saveMoneyPref(money: Int, checkBox: Boolean, moneyWished: Int, rent: Int) {
@@ -119,7 +117,7 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
     override fun onStop() {
         super.onStop()
         saveMoneyPref(
-            editTextMoney.text.toString().toInt(),
+            editTextMoneyFact.text.toString().toInt(),
             checkBox.isChecked,
             editTextMoneyWished.text.toString().toInt(),
             editTextRent.text.toString().toInt())
@@ -128,15 +126,15 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
     override fun onDestroy() {
         super.onDestroy()
         saveMoneyPref(
-            editTextMoney.text.toString().toInt(),
+            editTextMoneyFact.text.toString().toInt(),
             checkBox.isChecked,
             editTextMoneyWished.text.toString().toInt(),
             editTextRent.text.toString().toInt())
     }
 
     private fun init() {
-        editTextMoney = findViewById(R.id.editTextMoney)
-        editTextMoney.setOnEditorActionListener(this)
+        editTextMoneyFact = findViewById(R.id.editTextMoney)
+        editTextMoneyFact.setOnEditorActionListener(this)
         editTextMoneyWished = findViewById(R.id.editTextMoneyWished)
         editTextMoneyWished.setOnEditorActionListener(this)
         editTextRent = findViewById(R.id.editTextRent)
