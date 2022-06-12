@@ -8,19 +8,21 @@ import android.widget.*
 import java.util.*
 
 
-private const val rent = 27000
-
 class MoneyActivity : AppCompatActivity() {
+
     private lateinit var editTextMoney: EditText
-    private lateinit var checkBox: CheckBox
+    private lateinit var editTextMoneyWished: EditText
+    private lateinit var editTextRent: EditText
+
     private lateinit var textViewMoneyADay: TextView
     private lateinit var textViewMoneyAMonth: TextView
-    private lateinit var button: Button
-    private lateinit var seekBar: SeekBar
     private lateinit var textViewSeekBarProgress: TextView
     private lateinit var textViewPref: TextView
-    private lateinit var editTextMoneyWished: EditText
     private lateinit var textViewMoneyAvailable : TextView
+
+
+    private lateinit var checkBox: CheckBox
+    private lateinit var seekBar: SeekBar
 
     private var pref: SharedPreferences? = null
 
@@ -36,10 +38,13 @@ class MoneyActivity : AppCompatActivity() {
         textViewPref.text = pref?.getInt("money", 0).toString()
         editTextMoney.setText(pref?.getInt("money", 0).toString())
         editTextMoneyWished.setText(pref?.getInt("moneyWished", 0).toString())
+        editTextRent.setText(pref?.getInt("rent", 0).toString())
 
         //Подгрузка сохраненного состояния checkBox при запуске
         val stateOfCheckBox = pref?.getBoolean("checkBox", false)
         if (checkBox.isChecked != stateOfCheckBox) checkBox.toggle()
+
+        countMoney(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) // Расчет при запуске приложения
     }
 
 
@@ -63,6 +68,8 @@ class MoneyActivity : AppCompatActivity() {
     }
 
     private fun countMoney(todayDay: Int) {
+        // Получаем арендную плату из editText
+        val rent = (editTextRent.text).toString().toInt()
 
         //Получение и приведение значения в поле к типу Int
         val money = (editTextMoney.text).toString().toInt()
@@ -98,34 +105,44 @@ class MoneyActivity : AppCompatActivity() {
 
     }
 
-    private fun saveMoneyPref(money: Int, checkBox: Boolean, moneyWished: Int) {
+    private fun saveMoneyPref(money: Int, checkBox: Boolean, moneyWished: Int, rent: Int) {
         val editor = pref?.edit()
         editor?.putInt("money", money)
         editor?.putBoolean("checkBox", checkBox)
         editor?.putInt("moneyWished", moneyWished)
+        editor?.putInt("rent", rent)
         editor?.apply()
     }
 
     override fun onStop() {
         super.onStop()
-        saveMoneyPref(editTextMoney.text.toString().toInt(), checkBox.isChecked, editTextMoneyWished.text.toString().toInt())
+        saveMoneyPref(
+            editTextMoney.text.toString().toInt(),
+            checkBox.isChecked,
+            editTextMoneyWished.text.toString().toInt(),
+            editTextRent.text.toString().toInt())
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        saveMoneyPref(editTextMoney.text.toString().toInt(), checkBox.isChecked, editTextMoneyWished.text.toString().toInt())
+        saveMoneyPref(
+            editTextMoney.text.toString().toInt(),
+            checkBox.isChecked,
+            editTextMoneyWished.text.toString().toInt(),
+            editTextRent.text.toString().toInt())
     }
 
     private fun init() {
         editTextMoney = findViewById(R.id.editTextMoney)
+        editTextMoneyWished = findViewById(R.id.editTextMoneyWished)
+        editTextRent = findViewById(R.id.editTextRent)
+
         checkBox = findViewById(R.id.checkBox)
         textViewMoneyADay = findViewById(R.id.textViewMoneyADay)
         textViewMoneyAMonth = findViewById(R.id.textViewMoneyAMonth)
-        button = findViewById(R.id.button)
         seekBar = findViewById(R.id.seekBar)
         textViewSeekBarProgress = findViewById(R.id.textViewSeekBarProgress)
         textViewPref = findViewById(R.id.textViewPref)
-        editTextMoneyWished = findViewById(R.id.editTextMoneyWished)
         textViewMoneyAvailable = findViewById(R.id.textViewMoneyAvailable)
 
         pref = getSharedPreferences("Name", Context.MODE_PRIVATE)
