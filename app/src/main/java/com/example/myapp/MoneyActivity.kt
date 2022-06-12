@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import android.widget.*
 import java.util.*
 
 
-class MoneyActivity : AppCompatActivity() {
+class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
     private lateinit var editTextMoney: EditText
     private lateinit var editTextMoneyWished: EditText
@@ -134,8 +136,11 @@ class MoneyActivity : AppCompatActivity() {
 
     private fun init() {
         editTextMoney = findViewById(R.id.editTextMoney)
+        editTextMoney.setOnEditorActionListener(this)
         editTextMoneyWished = findViewById(R.id.editTextMoneyWished)
+        editTextMoneyWished.setOnEditorActionListener(this)
         editTextRent = findViewById(R.id.editTextRent)
+        editTextRent.setOnEditorActionListener(this)
 
         checkBox = findViewById(R.id.checkBox)
         textViewMoneyADay = findViewById(R.id.textViewMoneyADay)
@@ -146,5 +151,12 @@ class MoneyActivity : AppCompatActivity() {
         textViewMoneyAvailable = findViewById(R.id.textViewMoneyAvailable)
 
         pref = getSharedPreferences("Name", Context.MODE_PRIVATE)
+    }
+
+    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            countMoney(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) // Расчет при запуске приложения
+        }
+        return false
     }
 }
