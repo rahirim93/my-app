@@ -15,6 +15,7 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
     private lateinit var editTextMoneyFact: EditText
     private lateinit var editTextMoneyWished: EditText
     private lateinit var editTextRent: EditText
+    private lateinit var editTextMoneyNow: EditText
 
     private lateinit var textViewMoneyADay: TextView
     private lateinit var textViewMoneyAMonth: TextView
@@ -41,6 +42,7 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         editTextMoneyFact.setText(pref?.getInt("money", 0).toString())
         editTextMoneyWished.setText(pref?.getInt("moneyWished", 0).toString())
         editTextRent.setText(pref?.getInt("rent", 0).toString())
+        editTextMoneyNow.setText(pref?.getInt("moneyNow", 0).toString())
 
         //Подгрузка сохраненного состояния checkBox при запуске
         val stateOfCheckBox = pref?.getBoolean("checkBox", false)
@@ -105,12 +107,13 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         }
     }
 
-    private fun saveMoneyPref(money: Int, checkBox: Boolean, moneyWished: Int, rent: Int) {
+    private fun saveMoneyPref(money: Int, checkBox: Boolean, moneyWished: Int, rent: Int, moneyNow: Int) {
         val editor = pref?.edit()
         editor?.putInt("money", money)
         editor?.putBoolean("checkBox", checkBox)
         editor?.putInt("moneyWished", moneyWished)
         editor?.putInt("rent", rent)
+        editor?.putInt("moneyNow", moneyNow)
         editor?.apply()
     }
 
@@ -120,7 +123,9 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
             editTextMoneyFact.text.toString().toInt(),
             checkBox.isChecked,
             editTextMoneyWished.text.toString().toInt(),
-            editTextRent.text.toString().toInt())
+            editTextRent.text.toString().toInt(),
+            editTextMoneyNow.text.toString().toInt()
+        )
     }
 
     override fun onDestroy() {
@@ -129,7 +134,9 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
             editTextMoneyFact.text.toString().toInt(),
             checkBox.isChecked,
             editTextMoneyWished.text.toString().toInt(),
-            editTextRent.text.toString().toInt())
+            editTextRent.text.toString().toInt(),
+            editTextMoneyNow.text.toString().toInt()
+        )
     }
 
     private fun init() {
@@ -139,6 +146,8 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         editTextMoneyWished.setOnEditorActionListener(this)
         editTextRent = findViewById(R.id.editTextRent)
         editTextRent.setOnEditorActionListener(this)
+        editTextMoneyNow = findViewById(R.id.editTextMoneyNow)
+        editTextMoneyNow.setOnEditorActionListener(this)
 
         checkBox = findViewById(R.id.checkBox)
         textViewMoneyADay = findViewById(R.id.textViewMoneyADay)

@@ -37,6 +37,13 @@
             android:gravity="center"
             android:text="Арендная \n плата" />
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Денег \n осталось" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -46,7 +53,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/textViewMoneyAvailable"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -73,37 +80,15 @@
             android:layout_weight="1"
             android:gravity="center"
             android:inputType="number" />
+
+        <EditText
+            android:id="@+id/editTextMoneyNow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:inputType="number" />
     </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/textViewMoneyADay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Денег в день:"
-        android:layout_marginStart="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewMoneyAMonth"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Денег в день" />
-
-    <TextView
-        android:id="@+id/textViewMoneyAMonth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Денег в месяц:"
-        android:layout_marginStart="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewPref"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Денег в месяц" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:text="Минус аренда"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <SeekBar
         android:id="@+id/seekBar"
@@ -117,39 +102,54 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewSeekBarProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar"
-        tools:text="значение seekBar" />
-
-    <TextView
-        android:id="@+id/textViewPref"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="текст" />
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar"
+        app:layout_constraintStart_toStartOf="parent">
 
+        <TextView
+            android:id="@+id/textViewMoneyADay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Денег в день:"
+            tools:text="Денег в день" />
 
-    <TextView
-        android:id="@+id/textViewMoneyAvailable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:text="Можно потратить:"
-        app:layout_constraintBottom_toTopOf="@+id/textViewMoneyADay"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Сколько можно потратить" />
+        <TextView
+            android:id="@+id/textViewMoneyAMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Денег в месяц:"
+            tools:text="Денег в месяц" />
 
+        <TextView
+            android:id="@+id/textViewMoneyAvailable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Можно потратить:"
+            tools:text="Сколько можно потратить" />
 
+        <TextView
+            android:id="@+id/textViewPref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:text="текст" />
 
+        <TextView
+            android:id="@+id/textViewSeekBarProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="значение seekBar" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Минус аренда" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
