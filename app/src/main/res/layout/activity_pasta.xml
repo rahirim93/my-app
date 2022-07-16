@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PastaActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="Сырых \n макарон"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TextView
+            android:text="Готовых \n макарон"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/editTextUncooked"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            android:gravity="center"/>
+        <EditText
+            android:id="@+id/editTextCooked"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewProportion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/editTextFirstPortion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="1ая порция"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/textViewFirstPortion"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/editTextSecondPortion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="2ая порция"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/textViewSecondPortion"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/editTextThirdPortion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="3ая порция"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/textViewThirdPortion"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+
+</LinearLayout>

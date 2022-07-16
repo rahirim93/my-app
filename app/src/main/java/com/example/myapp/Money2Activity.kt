@@ -12,9 +12,7 @@ import com.example.myapp.moneyActivity.daysToPrePay
 import com.example.myapp.moneyActivity.getTextFromEditText
 import java.util.*
 
-
-
-
+// Добавить дней до аванса и до зарплаты
 // Вынести отдельную функцию для получения значения с editText
 // Если editText пустой, то при сохранения в shared preferences то вылетает исключение
 // Вынести в отдельную функцию сохранение состояния
@@ -22,11 +20,6 @@ import java.util.*
 // Во всех editText обработать случай если поле пустое, т.к. вылетает исключение
 
 /**
- * слишком много edittext.чтобы укоростить код, нужно создать массив edittext и проводить операции по сохранению и извлечению
- * из sharedpreferences с массивом. подумать о реализации
- *
- *
- *
  * есть желаемая сумма в месяц. есть количество денег потраченных на сегодняшний день.
  * разница будет количество свободных денег.
  * разница будет различаться в завимости от того выплачена аренда или нет
@@ -34,7 +27,7 @@ import java.util.*
  *
  */
 
-class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
+class Money2Activity : AppCompatActivity(), TextView.OnEditorActionListener {
 
     private lateinit var editTextSalary: EditText       // Поле для ввода оклада
     private lateinit var editTextPercentBonus: EditText // Поле для ввода процента премии
@@ -44,13 +37,6 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
     private lateinit var editTextRent: EditText
     private lateinit var editTextMoneyNow: EditText
     private lateinit var editTextSalaryFact: EditText
-
-    // Edittext разовых расходов
-    private lateinit var editTextCharge1: EditText
-    private lateinit var editTextCharge2: EditText
-    private lateinit var editTextCharge3: EditText
-    private lateinit var editTextCharge4: EditText
-    private lateinit var editTextCharge5: EditText
 
 
     private lateinit var textViewMoneyADay: TextView
@@ -67,51 +53,38 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
     private lateinit var seekBar: SeekBar
 
-    private var pref: SharedPreferences? = null
+    private var pref2: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_money)
+        setContentView(R.layout.activity_money2)
 
         init()
 
         seekBarsInit()
 
         //Подгрузка сохраненного состояния
-        textViewPref.text = pref?.getInt("money", 0).toString()
-        editTextMoneyFact.setText(pref?.getInt("money", 0).toString())
-        editTextMoneyWished.setText(pref?.getInt("moneyWished", 0).toString())
-        editTextRent.setText(pref?.getInt("rent", 0).toString())
-        editTextMoneyNow.setText(pref?.getInt("moneyNow", 0).toString())
-        editTextSalaryFact.setText(pref?.getInt("salaryFact", 0).toString())
-        editTextSalary.setText(pref?.getInt("salary", 0).toString())
-        editTextPercentBonus.setText(pref?.getInt("percentBonus", 0).toString())
-        // Подгрузка значений EditText разовых расходов
-        editTextCharge1.setText(pref?.getInt("charge1", 0).toString())
-        editTextCharge2.setText(pref?.getInt("charge2", 0).toString())
-        editTextCharge3.setText(pref?.getInt("charge3", 0).toString())
-        editTextCharge4.setText(pref?.getInt("charge4", 0).toString())
-        editTextCharge5.setText(pref?.getInt("charge5", 0).toString())
-
+        textViewPref.text = pref2?.getInt("money2", 0).toString()
+        editTextMoneyFact.setText(pref2?.getInt("money2", 0).toString())
+        editTextMoneyWished.setText(pref2?.getInt("moneyWished2", 0).toString())
+        editTextRent.setText(pref2?.getInt("rent2", 0).toString())
+        editTextMoneyNow.setText(pref2?.getInt("moneyNow2", 0).toString())
+        editTextSalaryFact.setText(pref2?.getInt("salaryFact2", 0).toString())
+        editTextSalary.setText(pref2?.getInt("salary2", 0).toString())
+        editTextPercentBonus.setText(pref2?.getInt("percentBonus2", 0).toString())
 
         //Подгрузка сохраненного состояния checkBox при запуске
-        val stateOfCheckBox = pref?.getBoolean("checkBox", false)
+        val stateOfCheckBox = pref2?.getBoolean("checkBox2", false)
         if (checkBox.isChecked != stateOfCheckBox) checkBox.toggle()
 
         countMoney(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) // Расчет при запуске приложения
     }
 
+
     private fun seekBarsInit() {
         seekBar.min = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)                 // Минимальное значение seekBar (дней с начала месяца)
         //seekBar.max = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH)  // Максимальное значение seekBat (дней в месяце)
-        // Максимальное значение seekBar
-        if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 5 >
-            Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH)) {
-            seekBar.max = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH)
-        } else {
-            seekBar.max = (Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) + 5
-        }
-        if (seekBar.min == seekBar.max) seekBar.isEnabled = false
+        seekBar.max = (Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) + 5           // Максимальное значение seekBat текущий день плюс 5 дней
         seekBar.progress = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)            // Прогресс seekBar (дней с начала месяца)
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -128,37 +101,35 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
     }
 
     private fun countMoney(todayDay: Int) {
-        val rent = getTextFromEditText(editTextRent)                                        // Арендная плата из EditText
-        val moneyFact = getTextFromEditText(editTextMoneyFact)                              // Фактическое количество потраченных денег из EditText
-        val countDayMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH)  // Количество дней в текущем месяце
+        // Получаем арендную плату из editText
+        val rent = getTextFromEditText(editTextRent)
 
-        val charge1 = getTextFromEditText(editTextCharge1) // Разовый расход из EditText
-        val charge2 = getTextFromEditText(editTextCharge2) // Разовый расход из EditText
-        val charge3 = getTextFromEditText(editTextCharge3) // Разовый расход из EditText
-        val charge4 = getTextFromEditText(editTextCharge4) // Разовый расход из EditText
-        val charge5 = getTextFromEditText(editTextCharge5) // Разовый расход из EditText
-        val sumCharges = charge1 + charge2 + charge3 + charge4 + charge5 // Сумма разовых расходов
+        //Получение и приведение значения фактического потраченного количества денег в editText к типу Int
+        val moneyFact = getTextFromEditText(editTextMoneyFact)
 
-        // Среднее количество денег которое тратилось в день до сегодняшнего дня
-        // Вычитаем также разовые расходы
-        val moneyOfDay = if (checkBox.isChecked) {      // Если квартплата уже внесена
-            (moneyFact - sumCharges - rent) / todayDay  // то вычитаем ее из суммы
+        // Количество дней в текущем месяце
+        val countDayMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH)
+
+        //Среднее количество денег которое тратилось в день до сегодняшнего дня
+        val moneyOfDay = if (checkBox.isChecked) {  // Если квартплата уже внесена
+            (moneyFact - rent) / todayDay               // то вычитаем ее из суммы
         } else {
-            (moneyFact - sumCharges) / todayDay         // Если нет, то просто делим на количество дней
+            moneyFact / todayDay                        // Если нет, то просто делим на количество дней
         }
         textViewMoneyADay.text = "Денег в день: $moneyOfDay"    // Выводим в textView
 
-        val moneyMonth = (moneyOfDay * countDayMonth) + rent + sumCharges   // Количество денег в месяц вместе с квартплатой и разовыми расходами
-        textViewMoneyAMonth.text = "Денег в месяц: $moneyMonth"             // Выводим в textView
+        // Количество денег в месяц с учетом квартплаты
+        val moneyMonth = (moneyOfDay * countDayMonth) + rent   // Количество денег в месяц вместе с квартплатой
+        textViewMoneyAMonth.text = "Денег в месяц: $moneyMonth"
 
         // Подсчет и вывод количества денег, которые можно потратить сегодня
         //Получение и приведение значения в поле к типу Int
         val moneyWished = getTextFromEditText(editTextMoneyWished) // Желаемая сумма в месяц
         if(moneyWished > 0) {
             val moneyAvailable = if (checkBox.isChecked) {
-                ((moneyWished - rent - sumCharges) / countDayMonth * todayDay - moneyFact) + rent + sumCharges //Сколько можно потратить сегодня (вычет аренды)
+                ((moneyWished - rent) / countDayMonth * todayDay - moneyFact) + rent //Сколько можно потратить сегодня (вычет аренды)
             } else {
-                (moneyWished - rent - sumCharges) / countDayMonth * todayDay - moneyFact + sumCharges //Сколько можно потратить сегодня
+                (moneyWished - rent) / countDayMonth * todayDay - moneyFact //Сколько можно потратить сегодня
             }
             textViewMoneyAvailable.text = "Можно потратить: $moneyAvailable"
         }
@@ -168,36 +139,23 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         val salaryWithBonus = (salary * percentBonus) / 100
         val salaryMinusTax = salaryWithBonus * 87 / 100
 
-        //Дней до конца месяца
-        val daysTillEndMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH) -
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-
         textViewSalaryWithBonus.text = "Зарплата с премией: $salaryWithBonus"
         textViewMinusTax.text = "Зарплата с вычетом налога: $salaryMinusTax"
 
-        textViewDaysToPay.text = "Дней до зарплаты: ${daysToPay()}"
-        textViewDaysToPrepay.text = "Дней до аванса: ${daysToPrePay()} \n" +
-                "Дней до конца месяца: $daysTillEndMonth"
+        //textViewDaysToPay.text = "Дней до зарплаты: ${daysToPay()}"
+        textViewDaysToPrepay.text = "Дней до аванса: ${daysToPrePay()}"
     }
 
-    private fun saveMoneyPref(money: Int, checkBox: Boolean, moneyWished: Int, rent: Int,
-                              moneyNow: Int, salaryFact: Int, salary: Int, percentBonus: Int,
-                              charge1: Int, charge2: Int, charge3: Int, charge4: Int, charge5: Int) {
-        val editor = pref?.edit()
-        editor?.putInt("money", money)
-        editor?.putBoolean("checkBox", checkBox)
-        editor?.putInt("moneyWished", moneyWished)
-        editor?.putInt("rent", rent)
-        editor?.putInt("moneyNow", moneyNow)
-        editor?.putInt("salaryFact", salaryFact)
-        editor?.putInt("salary", salary)
-        editor?.putInt("percentBonus", percentBonus)
-        // Сохраненине значений EditText разовых расходов
-        editor?.putInt("charge1", charge1)
-        editor?.putInt("charge2", charge2)
-        editor?.putInt("charge3", charge3)
-        editor?.putInt("charge4", charge4)
-        editor?.putInt("charge5", charge5)
+    private fun saveMoneyPref(money: Int, checkBox: Boolean, moneyWished: Int, rent: Int, moneyNow: Int, salaryFact: Int, salary: Int, percentBonus: Int) {
+        val editor = pref2?.edit()
+        editor?.putInt("money2", money)
+        editor?.putBoolean("checkBox2", checkBox)
+        editor?.putInt("moneyWished2", moneyWished)
+        editor?.putInt("rent2", rent)
+        editor?.putInt("moneyNow2", moneyNow)
+        editor?.putInt("salaryFact2", salaryFact)
+        editor?.putInt("salary2", salary)
+        editor?.putInt("percentBonus2", percentBonus)
         editor?.apply()
     }
 
@@ -211,12 +169,7 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
             editTextMoneyNow.text.toString().toInt(),
             editTextSalaryFact.text.toString().toInt(),
             editTextSalary.text.toString().toInt(),
-            editTextPercentBonus.text.toString().toInt(),
-            getTextFromEditText(editTextCharge1),
-            getTextFromEditText(editTextCharge2),
-            getTextFromEditText(editTextCharge3),
-            getTextFromEditText(editTextCharge4),
-            getTextFromEditText(editTextCharge5)
+            editTextPercentBonus.text.toString().toInt()
         )
     }
 
@@ -230,12 +183,7 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
             editTextMoneyNow.text.toString().toInt(),
             editTextSalaryFact.text.toString().toInt(),
             editTextSalary.text.toString().toInt(),
-            editTextPercentBonus.text.toString().toInt(),
-            getTextFromEditText(editTextCharge1),
-            getTextFromEditText(editTextCharge2),
-            getTextFromEditText(editTextCharge3),
-            getTextFromEditText(editTextCharge4),
-            getTextFromEditText(editTextCharge5)
+            editTextPercentBonus.text.toString().toInt()
         )
     }
 
@@ -256,17 +204,6 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         editTextSalaryFact = findViewById(R.id.editTextSalaryFact)
         editTextSalaryFact.setOnEditorActionListener(this)
 
-        // Edittext разовых расходов
-        editTextCharge1 = findViewById(R.id.editTextCharge1)
-        editTextCharge1.setOnEditorActionListener(this)
-        editTextCharge2 = findViewById(R.id.editTextCharge2)
-        editTextCharge2.setOnEditorActionListener(this)
-        editTextCharge3 = findViewById(R.id.editTextCharge3)
-        editTextCharge3.setOnEditorActionListener(this)
-        editTextCharge4 = findViewById(R.id.editTextCharge4)
-        editTextCharge4.setOnEditorActionListener(this)
-        editTextCharge5 = findViewById(R.id.editTextCharge5)
-        editTextCharge5.setOnEditorActionListener(this)
 
         checkBox = findViewById(R.id.checkBox)
         checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -284,7 +221,7 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         textViewDaysToPrepay = findViewById(R.id.textViewDaysToPrepay)
 
 
-        pref = getSharedPreferences("Name", Context.MODE_PRIVATE)
+        pref2 = getSharedPreferences("Name", Context.MODE_PRIVATE)
     }
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {

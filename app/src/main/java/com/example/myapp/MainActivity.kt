@@ -3,11 +3,11 @@ package com.example.myapp
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.ListView
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,10 +23,12 @@ class MainActivity : AppCompatActivity() {
 
         init()
 
-        var itemList = ArrayList<String>()
-        itemList.add("Расходы")
+        val itemList = ArrayList<String>()
+        itemList.add("Расходы мои")
+        itemList.add("Расходы Анины")
         itemList.add("Подсчет шагов")
         itemList.add("Гречка")
+        itemList.add("Макароны")
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, itemList)
         listView.adapter = adapter
@@ -38,11 +40,19 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 1 -> {
-                    val intent = Intent(this, StepsActivity::class.java)
+                    val intent = Intent(this, Money2Activity::class.java)
                     startActivity(intent)
                 }
                 2 -> {
+                    val intent = Intent(this, StepsActivity::class.java)
+                    startActivity(intent)
+                }
+                3 -> {
                     val intent = Intent(this, CerealActivity::class.java)
+                    startActivity(intent)
+                }
+                4 -> {
+                    val intent = Intent(this, PastaActivity::class.java)
                     startActivity(intent)
                 }
             }

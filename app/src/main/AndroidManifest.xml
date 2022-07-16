@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
         <activity
+            android:name=".PastaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Money2Activity"
+            android:exported="false" />
+        <activity
             android:name=".CerealActivity"
             android:exported="false" />
         <activity
