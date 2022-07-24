@@ -30,6 +30,18 @@ class MyAppRepository private constructor(context: Context){
         }
     }
 
+    fun updateSalary(salary: SalaryEntity){
+        executor.execute {
+            salaryDao.updateSalary(salary)
+        }
+    }
+
+    fun deleteSalary(salary: SalaryEntity){
+        executor.execute {
+            salaryDao.deleteSalary(salary)
+        }
+    }
+
     companion object {
         private var INSTANCE: MyAppRepository? = null
 

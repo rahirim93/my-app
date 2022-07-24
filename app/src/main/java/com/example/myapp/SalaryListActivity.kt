@@ -1,5 +1,6 @@
 package com.example.myapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -49,7 +50,8 @@ class SalaryListActivity : AppCompatActivity() {
         salaryRecyclerView.adapter = adapter
     }
 
-    private inner class SalaryHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener{
+    private inner class SalaryHolder(view: View): RecyclerView.ViewHolder(view),
+        View.OnClickListener {
 
         private lateinit var salary: SalaryEntity
 
@@ -57,15 +59,25 @@ class SalaryListActivity : AppCompatActivity() {
         private val monthTextView: TextView = itemView.findViewById(R.id.salary_month)
         private val salaryTextView: TextView = itemView.findViewById(R.id.salary)
 
+        init {
+            itemView.setOnClickListener(this)
+        }
+
         fun bind(salary: SalaryEntity){
             this.salary = salary
-            yearTextView.text = this.salary.date.get(Calendar.YEAR).toString()
-            monthTextView.text = this.salary.date.get(Calendar.MONTH).toString()
-            salaryTextView.text = this.salary.salary.toString()
+            yearTextView.text = "Год:\t\t\t\t\t\t" + this.salary.date.get(Calendar.YEAR).toString()
+            // Месяц. +1 потому что первый месяц в классе Calendar январь имеет номер 0
+            monthTextView.text = "Месяц:\t\t\t\t" + (this.salary.date.get(Calendar.MONTH) + 1).toString()
+            salaryTextView.text = "Зарплата:\t\t" + this.salary.salary.toString()
         }
 
         override fun onClick(v: View?) {
-
+            val intent = SalaryActivity.newIntent(
+                this@SalaryListActivity,
+                salary.id.toString(),
+                salary.date.timeInMillis,
+                salary.salary)
+            startActivity(intent)
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.myapp
 
 import android.util.Log
+import java.text.SimpleDateFormat
 import java.util.*
 
 fun log (string: String) {
@@ -27,4 +28,10 @@ fun getWorkDays() : Int {
         calendarForCycle.roll(Calendar.DAY_OF_MONTH, 1)
     }
     return counter
+}
+
+// Форматирование календаря в формате год.месяц "2019.09"
+fun formateCalendar(calendar: Calendar): String {
+    val dateFormat = SimpleDateFormat("yyyy.MM") //Настройка формата вывода в кнопку
+    return dateFormat.format(calendar.time)
 }
