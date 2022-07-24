@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         itemList.add("Подсчет шагов")
         itemList.add("Гречка")
         itemList.add("Макароны")
+        itemList.add("Заплата")
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, itemList)
         listView.adapter = adapter
@@ -53,6 +54,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 4 -> {
                     val intent = Intent(this, PastaActivity::class.java)
+                    startActivity(intent)
+                }
+                5 -> {
+                    val intent = Intent(this, SalaryListActivity::class.java)
                     startActivity(intent)
                 }
             }
