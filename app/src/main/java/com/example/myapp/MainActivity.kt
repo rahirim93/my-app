@@ -25,8 +25,6 @@ class MainActivity : AppCompatActivity() {
 
         val itemList = ArrayList<String>()
         itemList.add("Расходы мои")
-        itemList.add("Расходы Анины")
-        itemList.add("Подсчет шагов")
         itemList.add("Гречка")
         itemList.add("Макароны")
         itemList.add("Заплата")
@@ -41,22 +39,14 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 1 -> {
-                    val intent = Intent(this, Money2Activity::class.java)
-                    startActivity(intent)
-                }
-                2 -> {
-                    val intent = Intent(this, StepsActivity::class.java)
-                    startActivity(intent)
-                }
-                3 -> {
                     val intent = Intent(this, CerealActivity::class.java)
                     startActivity(intent)
                 }
-                4 -> {
+                2 -> {
                     val intent = Intent(this, PastaActivity::class.java)
                     startActivity(intent)
                 }
-                5 -> {
+                3 -> {
                     val intent = Intent(this, SalaryListActivity::class.java)
                     startActivity(intent)
                 }

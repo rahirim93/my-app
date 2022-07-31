@@ -35,3 +35,8 @@ fun formateCalendar(calendar: Calendar): String {
     val dateFormat = SimpleDateFormat("yyyy.MM") //Настройка формата вывода в кнопку
     return dateFormat.format(calendar.time)
 }
+
+// Cтоимость часа в данном месяце
+fun getPriceHour(workDays: Int, salaryMonth: Int): Int {
+    return salaryMonth / (workDays * 8)
+}
