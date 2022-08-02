@@ -20,7 +20,17 @@
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Потрачено \n денег фактически"
+                android:textSize="11sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -43,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text=""
+                android:text="Рабочих \n дней в месяце"
                 android:textSize="11sp" />
 
             <TextView
@@ -51,16 +61,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text=""
+                android:text="Желаемая \n сумма в месяц"
                 android:textSize="11sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text=""
-                android:textSize="11sp" />
+
 
         </LinearLayout>
 
@@ -72,6 +76,16 @@
             android:layout_marginEnd="5dp"
             android:paddingBottom="30dp"
             android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextMoney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:autofillHints="" />
 
             <EditText
                 android:hint="*"
@@ -105,6 +119,7 @@
                 android:autofillHints="" />
 
             <EditText
+                android:id="@+id/editTextMoneyWished"
                 android:autofillHints="name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,14 +128,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="number" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:autofillHints="" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -136,23 +144,23 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Потрачено \n денег фактически"
+                android:text="Дней \n отгулов"
                 android:textSize="11sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="Часов \n отгулов"
                 android:gravity="center"
-                android:text="Желаемая \n сумма в месяц"
                 android:textSize="11sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="Дней больничных"
                 android:gravity="center"
-                android:text="Арендная \n плата"
                 android:textSize="11sp" />
 
             <TextView
@@ -183,7 +191,6 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editTextMoney"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -193,7 +200,6 @@
                 android:autofillHints="" />
 
             <EditText
-                android:id="@+id/editTextMoneyWished"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -203,7 +209,6 @@
                 android:autofillHints="" />
 
             <EditText
-                android:id="@+id/editTextRent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -233,110 +238,7 @@
                 android:autofillHints="" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Рабочих \n дней в месяце"
-                android:textSize="11sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Дней \n отгулов"
-                android:textSize="11sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Часов \n отгулов"
-                android:textSize="11sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Дней больничных"
-                android:textSize="11sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text=""
-                android:textSize="11sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:orientation="horizontal">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:autofillHints="" />
-
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:autofillHints="" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:autofillHints="" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:autofillHints="" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:autofillHints="" />
-        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -358,7 +260,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="1"
+                android:text="Арендная \n плата"
                 android:textSize="11sp" />
 
             <TextView
@@ -403,7 +305,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editTextCharge1"
+                android:id="@+id/editTextRent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

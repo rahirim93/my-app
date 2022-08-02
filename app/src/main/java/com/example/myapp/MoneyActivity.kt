@@ -52,7 +52,6 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
     private lateinit var editTextSalaryFact: EditText
 
     // Edittext разовых расходов
-    private lateinit var editTextCharge1: EditText
     private lateinit var editTextCharge2: EditText
     private lateinit var editTextCharge3: EditText
     private lateinit var editTextCharge4: EditText
@@ -93,7 +92,6 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         editTextSalary.setText(pref?.getInt("salary", 0).toString())
         editTextPercentBonus.setText(pref?.getInt("percentBonus", 0).toString())
         // Подгрузка значений EditText разовых расходов
-        editTextCharge1.setText(pref?.getInt("charge1", 0).toString())
         editTextCharge2.setText(pref?.getInt("charge2", 0).toString())
         editTextCharge3.setText(pref?.getInt("charge3", 0).toString())
         editTextCharge4.setText(pref?.getInt("charge4", 0).toString())
@@ -138,12 +136,11 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         val moneyFact = getTextFromEditText(editTextMoneyFact)                              // Фактическое количество потраченных денег из EditText
         val countDayMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH)  // Количество дней в текущем месяце
 
-        val charge1 = getTextFromEditText(editTextCharge1) // Разовый расход из EditText
         val charge2 = getTextFromEditText(editTextCharge2) // Разовый расход из EditText
         val charge3 = getTextFromEditText(editTextCharge3) // Разовый расход из EditText
         val charge4 = getTextFromEditText(editTextCharge4) // Разовый расход из EditText
         val charge5 = getTextFromEditText(editTextCharge5) // Разовый расход из EditText
-        val sumCharges = charge1 + charge2 + charge3 + charge4 + charge5 // Сумма разовых расходов
+        val sumCharges = charge2 + charge3 + charge4 + charge5 // Сумма разовых расходов
 
         // Среднее количество денег которое тратилось в день до сегодняшнего дня
         // Вычитаем также разовые расходы
@@ -188,7 +185,7 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
     private fun saveMoneyPref(money: Int, checkBox: Boolean, moneyWished: Int, rent: Int,
                               moneyNow: Int, salaryFact: Int, salary: Int, percentBonus: Int,
-                              charge1: Int, charge2: Int, charge3: Int, charge4: Int, charge5: Int) {
+                              charge2: Int, charge3: Int, charge4: Int, charge5: Int) {
         val editor = pref?.edit()
         editor?.putInt("money", money)
         editor?.putBoolean("checkBox", checkBox)
@@ -199,7 +196,6 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         editor?.putInt("salary", salary)
         editor?.putInt("percentBonus", percentBonus)
         // Сохраненине значений EditText разовых расходов
-        editor?.putInt("charge1", charge1)
         editor?.putInt("charge2", charge2)
         editor?.putInt("charge3", charge3)
         editor?.putInt("charge4", charge4)
@@ -218,7 +214,6 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
             editTextSalaryFact.text.toString().toInt(),
             editTextSalary.text.toString().toInt(),
             editTextPercentBonus.text.toString().toInt(),
-            getTextFromEditText(editTextCharge1),
             getTextFromEditText(editTextCharge2),
             getTextFromEditText(editTextCharge3),
             getTextFromEditText(editTextCharge4),
@@ -237,7 +232,6 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
             editTextSalaryFact.text.toString().toInt(),
             editTextSalary.text.toString().toInt(),
             editTextPercentBonus.text.toString().toInt(),
-            getTextFromEditText(editTextCharge1),
             getTextFromEditText(editTextCharge2),
             getTextFromEditText(editTextCharge3),
             getTextFromEditText(editTextCharge4),
@@ -263,8 +257,6 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         editTextSalaryFact.setOnEditorActionListener(this)
 
         // Edittext разовых расходов
-        editTextCharge1 = findViewById(R.id.editTextCharge1)
-        editTextCharge1.setOnEditorActionListener(this)
         editTextCharge2 = findViewById(R.id.editTextCharge2)
         editTextCharge2.setOnEditorActionListener(this)
         editTextCharge3 = findViewById(R.id.editTextCharge3)
