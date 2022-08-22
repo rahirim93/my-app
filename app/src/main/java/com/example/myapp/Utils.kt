@@ -40,3 +40,8 @@ fun formateCalendar(calendar: Calendar): String {
 fun getPriceHour(workDays: Int, salaryMonth: Int): Int {
     return salaryMonth / (workDays * 8)
 }
+
+// Среднедневной заработок для расчета отпускных
+fun averagePriceOfHolidays() {
+
+}
