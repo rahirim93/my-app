@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapp.bluetoothTimer.BluetoothActivity
 import com.google.android.material.slider.Slider
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         itemList.add("Гречка")
         itemList.add("Макароны")
         itemList.add("Заплата")
+        itemList.add("Таймер")
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, itemList)
         listView.adapter = adapter
@@ -71,6 +73,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 3 -> {
                     val intent = Intent(this, SalaryListActivity::class.java)
+                    startActivity(intent)
+                }
+                4 -> {
+                    val intent = Intent(this, BluetoothActivity::class.java)
                     startActivity(intent)
                 }
             }

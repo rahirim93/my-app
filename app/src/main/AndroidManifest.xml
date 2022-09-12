@@ -2,7 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapp">
 
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
     <application
         android:name=".MyAppApplication"
         android:allowBackup="true"
@@ -12,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
         <activity
+            android:name=".bluetoothTimer.BluetoothActivity"
+            android:exported="false" />
+        <activity
             android:name=".SalaryActivity"
             android:exported="false" />
         <activity
@@ -19,9 +29,6 @@
             android:exported="false" />
         <activity
             android:name=".PastaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Money2Activity"
             android:exported="false" />
         <activity
             android:name=".CerealActivity"
@@ -42,10 +49,15 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".Receiver"
+        <receiver
+            android:name=".Receiver"
             android:enabled="true"
-            android:exported="true">
-        </receiver>
+            android:exported="true"/>
+        <receiver
+            android:name=".bluetoothTimer.BlueTimerReceiver"
+            android:enabled="true"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

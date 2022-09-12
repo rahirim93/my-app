@@ -4,7 +4,14 @@ SoftwareSerial mySerial(2, 3); // указываем пины rx и tx соот�
 long counterBluetooth;
 // HC05 (Bluetooth модуль)///////////////////////////////////
 
+//Кнопка
+#define PIN 7        // кнопка подключена сюда (PIN --- КНОПКА --- GND)
+#include "GyverButton.h"
+GButton butt1(PIN);
+//Кнопка
 void setup() {
+    butt1.setDirection(NORM_OPEN);
+
 
   // Настройка bluetooth модуля
   pinMode(2, INPUT);
@@ -15,8 +22,11 @@ void setup() {
 }
 
 void loop() {
+    butt1.tick();  // обязательная функция отработки. Должна постоянно опрашиваться
+    if (butt1.isClick()) mySerial.println("alarm");         // проверка на один клик
 
-  blueTest();
+
+  //blueTest();
   //test();
   //test2();
 
