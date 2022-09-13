@@ -1,5 +1,6 @@
 package com.example.myapp.bluetoothTimer
 
+import com.example.myapp.bluetoothTimer.BlueTimerReceiver
 import android.Manifest
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -18,11 +19,20 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.example.myapp.MainActivity
+import com.example.myapp.NOTIFICATION_CHANNEL_ID
 import com.example.myapp.R
+import com.example.myapp.log
+import java.text.SimpleDateFormat
 import java.util.*
 
 class BluetoothActivity : AppCompatActivity() {
+    private var timeToAlarm: Long = 0
+    private lateinit var notificationManagerCompat: NotificationManagerCompat
+    private lateinit var pendingIntent: PendingIntent // Для поиска будильника
+    private lateinit var button: Button
     private lateinit var connectionThread: ConnectThread
     // Handler для передачи сообщений между потоками
     private lateinit var handler: Handler
@@ -42,6 +52,22 @@ class BluetoothActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blue)
+
+        bluetoothAdapter?.startDiscovery()
+
+
+        notificationManagerCompat = NotificationManagerCompat.from(this)
+
+
+        button = findViewById(R.id.buttonTestTest)
+        button.setOnClickListener {
+            var a = alarmManager.nextAlarmClock.triggerTime
+            val b = SimpleDateFormat("HH:mm:ss")
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = a
+            log(b.format(calendar.time))
+            alarmManager.cancel(pendingIntent)
+        }
 
         init()
 
@@ -113,6 +139,14 @@ class BluetoothActivity : AppCompatActivity() {
                             founded = true
                             buttonConnect.isEnabled = true //Если найдено искомое устройство - разблокировать устройство
                             Toast.makeText(context, "Устройство найдено", Toast.LENGTH_SHORT).show()
+                            //Создать поток соединения и запускить
+                            if (myDevice != null) {
+                                connectionThread = ConnectThread(myDevice, handler)
+                                connectionThread.start()
+                                Toast.makeText(context, "Попытка соединения", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(context, "Device = null", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }
@@ -150,11 +184,13 @@ class BluetoothActivity : AppCompatActivity() {
         //Toast.makeText(this, "Будильник установлен на ${simpleDateFormat.format(calendar.time)}", Toast.LENGTH_SHORT).show()
     }
     private fun setTestAlarm() {
-        val calendar = Calendar.getInstance().timeInMillis + 1000
+        val calendar = Calendar.getInstance().timeInMillis + 180000
         val calendar2 = Calendar.getInstance()
         calendar2.timeInMillis = calendar
 
-        var pendingIntent = PendingIntent.getBroadcast(
+        timeToAlarm = calendar2.timeInMillis
+
+        pendingIntent = PendingIntent.getBroadcast(
             this,
             0,
             Intent(this, BlueTimerReceiver::class.java),
@@ -162,6 +198,22 @@ class BluetoothActivity : AppCompatActivity() {
         )
 
         setAlarm(calendar2, pendingIntent)
+        var notificationBuilder = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+            .setSmallIcon(android.R.drawable.ic_notification_overlay)
+            .setContentTitle("Будильник")
+            .setContentText("Установлен")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+        with(notificationManagerCompat) {
+            notify(1, notificationBuilder.build())
+        }
         //finish()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        log("onResume")
+        val a = (timeToAlarm - Calendar.getInstance().timeInMillis) / 1000
+        button.text = "Время: ${a.toString()}"
     }
 }
