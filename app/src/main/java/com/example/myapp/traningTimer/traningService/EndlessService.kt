@@ -158,8 +158,8 @@ class EndlessService : Service(), SensorEventListener {
             when (action) {
                 Actions.START.name -> startService()
                 Actions.STOP.name -> stopService()
-                "stopVibrator" -> flag = false
-                "play" -> {
+                Actions.STOP_VIBRATOR.name -> flag = false
+                Actions.PLAY.name -> {
                     Toast.makeText(this, "play", Toast.LENGTH_SHORT).show()
                     flag = true
                     ringtone.play()

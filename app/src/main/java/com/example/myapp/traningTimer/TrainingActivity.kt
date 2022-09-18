@@ -146,14 +146,14 @@ class TrainingActivity : AppCompatActivity(), SensorEventListener {
 
 
     private fun setTestAlarm() {
-        val calendar = Calendar.getInstance().timeInMillis + 180000
+        val calendar = Calendar.getInstance().timeInMillis + 5000
         val calendar2 = Calendar.getInstance()
         calendar2.timeInMillis = calendar
 
         //timeToAlarm = calendar2.timeInMillis
 
         val intent = Intent(this, EndlessService::class.java)
-        intent.action = "play"
+        intent.action = Actions.PLAY.name
         pendingIntent = PendingIntent.getService(
             this,
             0,
@@ -167,7 +167,7 @@ class TrainingActivity : AppCompatActivity(), SensorEventListener {
 
 
         val intent2 = Intent(this, EndlessService::class.java)
-        intent2.action = "stopVibrator"
+        intent2.action = Actions.STOP_VIBRATOR.name
         startService(intent2)
 
     }
