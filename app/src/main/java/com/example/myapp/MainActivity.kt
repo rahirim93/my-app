@@ -8,13 +8,12 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapp.bluetoothTimer.BluetoothActivity
+import com.example.myapp.traningTimer.TrainingActivity
 import com.google.android.material.slider.Slider
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 /** Текущая задача установка будильника с главного экрана
  * 1) Подготовить код для установки будильника
@@ -76,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 4 -> {
-                    val intent = Intent(this, BluetoothActivity::class.java)
+                    val intent = Intent(this, TrainingActivity::class.java)
                     startActivity(intent)
                 }
             }
