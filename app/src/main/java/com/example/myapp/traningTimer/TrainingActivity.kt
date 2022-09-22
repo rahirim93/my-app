@@ -2,10 +2,7 @@ package com.example.myapp.traningTimer
 
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -15,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -29,8 +27,15 @@ import java.util.*
 
 const val SET_ALARM = "setAlarm"
 const val BROADCAST_ACTION = "broadcastAction"
+const val SHARED_PREFERENCES_NAME = "name"
+const val SHARED_TRAINING_TIME = "training time"
 
 class TrainingActivity : AppCompatActivity(), SensorEventListener {
+
+    private var timeTraining = 0
+
+    private lateinit var editTextTime: EditText
+    private lateinit var buttonTime: Button
 
      private lateinit var alarmManager: AlarmManager
 
@@ -54,9 +59,25 @@ class TrainingActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var xzView: TextView
     private lateinit var zyView: TextView
 
+    private var sharedPreferences: SharedPreferences? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_traning)
+
+        sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+
+        editTextTime = findViewById(R.id.editTextTime)
+        editTextTime.setText(sharedPreferences?.getInt(SHARED_TRAINING_TIME, 0).toString())
+
+        buttonTime = findViewById(R.id.buttonTime)
+        buttonTime.setOnClickListener {
+            val editor = sharedPreferences?.edit()
+            editor?.putInt(SHARED_TRAINING_TIME, editTextTime.text.toString().toInt())
+            editor?.apply()
+        }
+
 
         button = findViewById(R.id.buttonRing)
         button.setOnClickListener {
@@ -146,7 +167,11 @@ class TrainingActivity : AppCompatActivity(), SensorEventListener {
 
 
     private fun setTestAlarm() {
-        val calendar = Calendar.getInstance().timeInMillis + 5000
+        if (sharedPreferences != null) {
+            timeTraining = sharedPreferences!!.getInt(SHARED_TRAINING_TIME, 0)
+        }
+        editTextTime.setText(timeTraining.toString())
+        val calendar = Calendar.getInstance().timeInMillis + (timeTraining * 1000)
         val calendar2 = Calendar.getInstance()
         calendar2.timeInMillis = calendar
 
