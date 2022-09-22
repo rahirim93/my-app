@@ -34,6 +34,8 @@ private const val TAG = "rahirim"
 
 class EndlessService : Service(), SensorEventListener {
 
+    var counter: Long = 0
+    var vibrateDelay = 1000
 
     private var calendar: Long = 0
 
@@ -68,6 +70,7 @@ class EndlessService : Service(), SensorEventListener {
 
     override fun onCreate() {
         super.onCreate()
+        counter = Calendar.getInstance().timeInMillis
         notificationManagerCompat = NotificationManagerCompat.from(this)
         notificationUri = Uri.parse("content://media/internal/audio/media/119?title=Beep-Beep&canonical=1")
         ringtone = RingtoneManager.getRingtone(this, notificationUri)
@@ -87,7 +90,7 @@ class EndlessService : Service(), SensorEventListener {
                 xyAngle = event.values[0]  //Плоскость XY
                 xzAngle = event.values[1] //Плоскость XZ
                 zyAngle = event.values[2] //Плоскость ZY
-                vibrate(30)
+                //vibrate(30)
             }
 
             if (xzAngle > 0 && xzAngle < 10) {
@@ -96,17 +99,24 @@ class EndlessService : Service(), SensorEventListener {
                 }
             }
 
-            if (zyAngle < -40 && !rightMove && xzAngle < -40) {
+            if (zyAngle < -40 && !rightMove) {
                 Log.d(TAG, "rightMove")
                 rightMove = true
-                vibrate(100)
+                //vibrate(100)
+                vibrateDelay = 500
                 updateNotification("rightMove")
             }
 
-            if (zyAngle > 40 && rightMove && xzAngle < -40) {
+            if (zyAngle > 40 && rightMove) {
                 Log.d(TAG, "leftMove")
                 leftMove = true
                 updateNotification("leftMove")
+            }
+
+            if (Calendar.getInstance().timeInMillis - counter > vibrateDelay) {
+                counter = Calendar.getInstance().timeInMillis
+                //Toast.makeText(this, "Да", Toast.LENGTH_SHORT).show()
+                vibrate(400)
             }
 
             if (rightMove && leftMove) {
