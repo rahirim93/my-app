@@ -172,6 +172,7 @@ class EndlessService : Service(), SensorEventListener {
                 Actions.PLAY.name -> {
                     Toast.makeText(this, "play", Toast.LENGTH_SHORT).show()
                     flag = true
+                    vibrateDelay = 1000
                     ringtone.play()
                     flagUpdateNotification = false
                 }
