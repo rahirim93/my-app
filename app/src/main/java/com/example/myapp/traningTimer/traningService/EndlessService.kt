@@ -34,7 +34,9 @@ private const val TAG = "rahirim"
 
 class EndlessService : Service(), SensorEventListener {
 
-    var counter: Long = 0
+    var timeRightMove: Long = 0
+
+    private var counter: Long = 0
     var vibrateDelay = 1000
 
     private var calendar: Long = 0
@@ -105,6 +107,7 @@ class EndlessService : Service(), SensorEventListener {
                 //vibrate(100)
                 vibrateDelay = 500
                 updateNotification("rightMove")
+                timeRightMove = Calendar.getInstance().timeInMillis
             }
 
             if (zyAngle > 40 && rightMove) {
@@ -117,6 +120,13 @@ class EndlessService : Service(), SensorEventListener {
                 counter = Calendar.getInstance().timeInMillis
                 //Toast.makeText(this, "Да", Toast.LENGTH_SHORT).show()
                 vibrate(400)
+            }
+
+            // Если сработал признак правого движения и прошло 2 секунды,
+            // то признак правого движения сбрасывается.
+            if (rightMove && Calendar.getInstance().timeInMillis - timeRightMove > 2000) {
+                rightMove = false
+                vibrateDelay = 1000
             }
 
             if (rightMove && leftMove) {
