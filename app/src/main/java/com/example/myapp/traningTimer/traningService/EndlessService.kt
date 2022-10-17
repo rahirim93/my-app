@@ -101,7 +101,7 @@ class EndlessService : Service(), SensorEventListener {
                 }
             }
 
-            if (zyAngle < -40 && !rightMove) {
+            if (zyAngle < -40 && !rightMove && xzAngle < 0) {
                 Log.d(TAG, "rightMove")
                 rightMove = true
                 //vibrate(100)
@@ -110,7 +110,7 @@ class EndlessService : Service(), SensorEventListener {
                 timeRightMove = Calendar.getInstance().timeInMillis
             }
 
-            if (zyAngle > 40 && rightMove) {
+            if (zyAngle > 40 && rightMove && xzAngle < 0) {
                 Log.d(TAG, "leftMove")
                 leftMove = true
                 updateNotification("leftMove")
