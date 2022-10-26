@@ -1,15 +1,18 @@
 package com.example.myapp.traningTimer
 
 import android.app.AlarmManager
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.*
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.media.AudioManager
 import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -31,6 +34,8 @@ const val SHARED_PREFERENCES_NAME = "name"
 const val SHARED_TRAINING_TIME = "training time"
 
 class TrainingActivity : AppCompatActivity(), SensorEventListener {
+
+    private lateinit var notificationManager: NotificationManager
 
     private var timeTraining = 0
 
@@ -126,7 +131,12 @@ class TrainingActivity : AppCompatActivity(), SensorEventListener {
         mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION)
         mSensorManager.registerListener(this, mOrientation, SensorManager.SENSOR_DELAY_UI)
 
+        notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+        changeMuteMode()
     }
+
+
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -149,6 +159,23 @@ class TrainingActivity : AppCompatActivity(), SensorEventListener {
             }
             //log("Starting the service in < 26 Mode")
             startService(it)
+        }
+    }
+
+    private fun changeMuteMode(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+            && !notificationManager.isNotificationPolicyAccessGranted
+        ) {
+            val intent = Intent(
+                Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS
+            )
+            startActivity(intent)
+        }
+        val am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        val a = am.ringerMode
+        if (a == 0) {
+            am.ringerMode = 2
+            Toast.makeText(this, "Режим: $a", Toast.LENGTH_SHORT).show()
         }
     }
 
