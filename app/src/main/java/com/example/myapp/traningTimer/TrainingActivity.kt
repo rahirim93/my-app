@@ -119,6 +119,8 @@ class TrainingActivity : AppCompatActivity(), SensorEventListener {
             } catch (e: Exception) {
                 Toast.makeText(this, "Исключение при отключении будильника", Toast.LENGTH_SHORT).show()
             }
+            changeMuteMode()
+            finish()
         }
 
         notificationManagerCompat = NotificationManagerCompat.from(this)
@@ -163,19 +165,17 @@ class TrainingActivity : AppCompatActivity(), SensorEventListener {
     }
 
     private fun changeMuteMode(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-            && !notificationManager.isNotificationPolicyAccessGranted
-        ) {
-            val intent = Intent(
-                Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS
-            )
+        if (!notificationManager.isNotificationPolicyAccessGranted) {
+            val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
             startActivity(intent)
         }
         val am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         val a = am.ringerMode
-        if (a == 0) {
+        if (a == 0 || a == 1) {
             am.ringerMode = 2
             Toast.makeText(this, "Режим: $a", Toast.LENGTH_SHORT).show()
+        } else if (a == 2) {
+            am.ringerMode = 0
         }
     }
 
