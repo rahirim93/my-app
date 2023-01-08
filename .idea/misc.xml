@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Viacheslav/Desktop/my-app-main/my-app-main/app/src/main/res/layout/activity_blue.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Viacheslav/Desktop/my-app/app/src/main/res/layout/activity_blue.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Viacheslav/Desktop/my-app/app/src/main/res/layout/activity_pasta.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Viacheslav/Desktop/my-app/app/src/main/res/layout/activity_traning.xml" value="0.253125" />
         <entry key="..\:/Users/Viacheslav/Desktop/myApp/app/src/main/res/layout/activity_cereal.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Viacheslav/Desktop/myApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
@@ -18,7 +19,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

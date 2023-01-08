@@ -1,15 +1,16 @@
 package com.example.myapp
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.myapp.moneyActivity.getTextFromEditText
-import java.util.*
+import kotlinx.android.synthetic.main.activity_pasta.*
 
 class PastaActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
@@ -41,22 +42,29 @@ class PastaActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         count()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun count() {
         var proportion = 0.0
 
         if (getTextFromEditText(editTextCooked) != 0 && getTextFromEditText(editTextUncooked) != 0) {
-            proportion = getTextFromEditText(editTextCooked).toDouble() / getTextFromEditText(editTextUncooked).toDouble()
+            val cooked = if (checkBoxPan.isChecked) {
+                getTextFromEditText(editTextCooked).toDouble() - 672.0
+            } else {
+                getTextFromEditText(editTextCooked).toDouble()
+            }
+            val uncooked = getTextFromEditText(editTextUncooked)
+            proportion = cooked / uncooked
             textViewProportion.text = "Готовые/сырые $proportion"
         }
 
         //Первая порция
-        var firstPortion = getTextFromEditText(editTextFirstPortion).toDouble() * proportion
+        val firstPortion = getTextFromEditText(editTextFirstPortion).toDouble() * proportion
         textViewFirstPortion.text = "$firstPortion"
         //Вторая порция
-        var secondPortion = getTextFromEditText(editTextSecondPortion).toDouble() * proportion
+        val secondPortion = getTextFromEditText(editTextSecondPortion).toDouble() * proportion
         textViewSecondPortion.text = "$secondPortion"
         //Третья порция
-        var thirdPortion = getTextFromEditText(editTextThirdPortion).toDouble() * proportion
+        val thirdPortion = getTextFromEditText(editTextThirdPortion).toDouble() * proportion
         textViewThirdPortion.text = "$thirdPortion"
     }
 
@@ -85,6 +93,10 @@ class PastaActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         textViewThirdPortion = findViewById(R.id.textViewThirdPortion)
 
         sharedPreferences = getSharedPreferences("Name", Context.MODE_PRIVATE)
+
+        checkBoxPan.setOnCheckedChangeListener { _, _ ->
+            count()
+        }
     }
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
@@ -94,13 +106,14 @@ class PastaActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         return false
     }
 
-    private fun savePreferences(cooked: Int, uncooked: Int, firstPortion: Int, secondPortion: Int, thirdPortion: Int) {
+    private fun savePreferences(cooked: Int, uncooked: Int, firstPortion: Int, secondPortion: Int, thirdPortion: Int, isTherePan: Boolean) {
         val editor = sharedPreferences?.edit()
         editor?.putInt("cooked", cooked)
         editor?.putInt("uncooked", uncooked)
         editor?.putInt("firstPortion", firstPortion)
         editor?.putInt("secondPortion", secondPortion)
         editor?.putInt("thirdPortion", thirdPortion)
+        editor?.putBoolean("isTherePan", isTherePan)
         editor?.apply()
     }
 
@@ -110,6 +123,7 @@ class PastaActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         editTextFirstPortion.setText(sharedPreferences?.getInt("firstPortion", 0).toString())
         editTextSecondPortion.setText(sharedPreferences?.getInt("secondPortion", 0).toString())
         editTextThirdPortion.setText(sharedPreferences?.getInt("thirdPortion", 0).toString())
+        checkBoxPan.isChecked = sharedPreferences?.getBoolean("isTherePan", true)!!
     }
 
     override fun onStop() {
@@ -119,7 +133,8 @@ class PastaActivity : AppCompatActivity(), TextView.OnEditorActionListener {
             getTextFromEditText(editTextUncooked),
             getTextFromEditText(editTextFirstPortion),
             getTextFromEditText(editTextSecondPortion),
-            getTextFromEditText(editTextThirdPortion)
+            getTextFromEditText(editTextThirdPortion),
+            checkBoxPan.isChecked
         )
     }
 
@@ -130,7 +145,8 @@ class PastaActivity : AppCompatActivity(), TextView.OnEditorActionListener {
             getTextFromEditText(editTextUncooked),
             getTextFromEditText(editTextFirstPortion),
             getTextFromEditText(editTextSecondPortion),
-            getTextFromEditText(editTextThirdPortion)
+            getTextFromEditText(editTextThirdPortion),
+            checkBoxPan.isChecked
         )
     }
 }

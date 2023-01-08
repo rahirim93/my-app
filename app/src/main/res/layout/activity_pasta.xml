@@ -18,13 +18,15 @@
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            tools:ignore="HardcodedText" />
         <TextView
             android:text="Готовых \n макарон"
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 
@@ -119,6 +121,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1"/>
     </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkBoxPan"
+        android:text="С учетом кастрюли"
+        android:layout_gravity="start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="HardcodedText" />
 
     <View
         android:layout_width="wrap_content"
