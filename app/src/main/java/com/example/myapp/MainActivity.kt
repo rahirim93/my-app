@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapp.moneyActivity.MoneyActivity
 import com.example.myapp.traningTimer.TrainingActivity
 import com.google.android.material.slider.Slider
 import com.google.android.material.timepicker.MaterialTimePicker

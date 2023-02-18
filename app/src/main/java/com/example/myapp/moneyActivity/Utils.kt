@@ -57,7 +57,9 @@ fun daysToPay(): Long {
 }
 
 // Получение значения из EditText
-fun getTextFromEditText(editText: EditText): Int {
+fun getIntFromEditText(editText: EditText): Int {
+    val text = editText.text.toString()
+    if (text == "") return 0
     return (editText.text).toString().toInt()
 }
 

@@ -46,7 +46,7 @@
             android:name=".traningTimer.TrainingActivity"
             android:exported="true" />
         <activity
-            android:name=".MoneyActivity"
+            android:name=".moneyActivity.MoneyActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
