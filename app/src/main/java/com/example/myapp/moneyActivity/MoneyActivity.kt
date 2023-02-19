@@ -50,17 +50,6 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
         seekBarsInit()
 
-        sharedHelper = SharedHelper(binding, this)
-
-        sharedHelper.sharedLoad()
-
-        //Подгрузка сохраненного состояния
-        binding.textViewPref.text = pref?.getInt("money", 0).toString()
-
-        //Подгрузка сохраненного состояния checkBox при запуске
-        val stateOfCheckBox = pref?.getBoolean("checkBox", false)
-        if (binding.checkBox.isChecked != stateOfCheckBox) binding.checkBox.toggle()
-
         countMoney(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) // Расчет при запуске приложения
     }
 
@@ -154,7 +143,11 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
     }
 
     private fun init() {
-        pref = getSharedPreferences("Name", Context.MODE_PRIVATE)
+        pref = getSharedPreferences("MoneyActivity", Context.MODE_PRIVATE)
+
+        sharedHelper = SharedHelper(binding, this)
+
+        sharedHelper.sharedLoad()
 
         // Перебираем элементы layout, назначаем слуатели на клавитуру для EditText
         binding.root.firstLinearLayout.forEach { it1 ->

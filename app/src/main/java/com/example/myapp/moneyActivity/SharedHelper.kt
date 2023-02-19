@@ -3,8 +3,10 @@ package com.example.myapp.moneyActivity
 import android.content.Context
 import android.util.Log
 import android.view.View
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.view.forEach
 import com.example.myapp.databinding.ActivityMoneyBinding
 import kotlinx.android.synthetic.main.activity_money.view.*
@@ -13,7 +15,7 @@ class SharedHelper(
     private val binding: ActivityMoneyBinding,
     context: Context) {
 
-    private val sharedPreferences = context.getSharedPreferences("name", Context.MODE_PRIVATE)
+    private val sharedPreferences = context.getSharedPreferences("MoneyActivity", Context.MODE_PRIVATE)
 
     private val listView = mutableListOf<View>()
 
@@ -31,14 +33,20 @@ class SharedHelper(
                 }
             }
         }
+        listView.add(binding.checkBox)
     }
 
     fun sharedSave() {
         val editor = sharedPreferences.edit()
         listView.forEach {
             val key = it.id.toString()
-            val value = (it as EditText).text.toString()
-            editor.putString(key, value)
+            if (it is EditText) {
+                val value = it.text.toString()
+                editor.putString(key, value)
+            } else if (it is CheckBox) {
+                val value = it.isChecked
+                editor.putBoolean(key, value)
+            }
         }
         editor.apply()
     }
@@ -46,8 +54,13 @@ class SharedHelper(
     fun sharedLoad() {
         listView.forEach {
             val key = it.id.toString()
-            val value = sharedPreferences.getString(key, "0")
-            (it as EditText).setText(value)
+            if (it is EditText) {
+                val value = sharedPreferences.getString(key, "0")
+                it.setText(value)
+            } else if (it is CheckBox) {
+                val value = sharedPreferences.getBoolean(key, false)
+                it.isChecked = value
+            }
         }
     }
 }
