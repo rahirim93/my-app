@@ -34,7 +34,7 @@
             android:name=".SalaryListActivity"
             android:exported="false" />
         <activity
-            android:name=".PastaActivity"
+            android:name=".pastaActivity.PastaActivity"
             android:exported="false" />
         <activity
             android:name=".CerealActivity"
