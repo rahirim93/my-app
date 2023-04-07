@@ -173,10 +173,12 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
         binding.editTextMoney.apply {
             requestFocus() // Фокусируемся на данном поле
-            setSelection(this.length()) // Курсор перемещаем в конец
+            //selectAll()
+            //setSelection(this.length()) // Курсор перемещаем в конец
             postDelayed({ // Открываем клавиатуру
                 val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.showSoftInput(binding.editTextMoney, InputMethodManager.SHOW_IMPLICIT)
+                selectAll() // Выделяем текст
             }, 500) // Делаем это с задержкой (без задержки не работает)
         }
 
