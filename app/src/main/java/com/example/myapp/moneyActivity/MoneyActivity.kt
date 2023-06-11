@@ -11,7 +11,6 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import com.example.myapp.databinding.ActivityMoneyBinding
-import kotlinx.android.synthetic.main.activity_money.view.*
 import java.util.*
 
 
@@ -161,7 +160,7 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         sharedHelper.sharedLoad()
 
         // Перебираем элементы layout, назначаем слуатели на клавитуру для EditText
-        binding.root.firstLinearLayout.forEach { it1 ->
+        binding.firstLinearLayout.forEach { it1 ->
             if (it1 is LinearLayout) {
                 it1.forEach {
                     if (it is EditText) {

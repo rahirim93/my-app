@@ -88,7 +88,18 @@
             android:text="Удалить"/>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 
+    <EditText
+        android:id="@+id/editTextExpenses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number" />
 
 
 </LinearLayout>

@@ -1,25 +1,25 @@
 package com.example.myapp
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapp.database.SalaryEntity
+import com.example.myapp.databinding.ActivitySalariesBinding
 import java.util.*
 
 class SalaryListActivity : AppCompatActivity() {
 
-    private val myAppViewModel: MyAppViewModel by lazy {
-        ViewModelProviders.of(this).get(MyAppViewModel::class.java)
-    }
+    private lateinit var binding: ActivitySalariesBinding
+
+    private val myAppViewModel: MyAppViewModel by viewModels()
+
 
     private lateinit var salaryRecyclerView: RecyclerView
     private var adapter: SalaryAdapter? = SalaryAdapter(emptyList())
@@ -28,7 +28,12 @@ class SalaryListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_salaries)
+
+
+        binding = ActivitySalariesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+
 
         buttonInsert = findViewById(R.id.button_insert)
         buttonInsert.setOnClickListener {
@@ -58,6 +63,8 @@ class SalaryListActivity : AppCompatActivity() {
         private val yearTextView: TextView = itemView.findViewById(R.id.salary_year)
         private val monthTextView: TextView = itemView.findViewById(R.id.salary_month)
         private val salaryTextView: TextView = itemView.findViewById(R.id.salary)
+        private val expensesTextView: TextView = itemView.findViewById(R.id.expenses)
+        private val profitTextView: TextView = itemView.findViewById(R.id.profit)
 
         init {
             itemView.setOnClickListener(this)
@@ -65,18 +72,27 @@ class SalaryListActivity : AppCompatActivity() {
 
         fun bind(salary: SalaryEntity){
             this.salary = salary
-            yearTextView.text = "Год:\t\t\t\t\t\t" + this.salary.date.get(Calendar.YEAR).toString()
+            yearTextView.text = "Год:\t\t\t\t\t\t\t" + this.salary.date.get(Calendar.YEAR).toString()
             // Месяц. +1 потому что первый месяц в классе Calendar январь имеет номер 0
             monthTextView.text = "Месяц:\t\t\t\t" + (this.salary.date.get(Calendar.MONTH) + 1).toString()
-            salaryTextView.text = "Зарплата:\t\t" + this.salary.salary.toString()
+            salaryTextView.text = "Зарплата:\t" + this.salary.salary.toString()
+            expensesTextView.text = "Расходы:\t\t" +  this.salary.expenses.toString()
+            // Вывод дохода
+            var exp = 0
+            if (this.salary.expenses == null) {
+                exp = 0
+            } else {
+                exp = this.salary.expenses!!
+            }
+            var profit = this.salary.salary - exp
+            profitTextView.text = "Доход:\t\t\t\t" + profit
+
         }
 
         override fun onClick(v: View?) {
             val intent = SalaryActivity.newIntent(
                 this@SalaryListActivity,
-                salary.id.toString(),
-                salary.date.timeInMillis,
-                salary.salary)
+                salary.id.toString())
             startActivity(intent)
         }
     }

@@ -8,17 +8,32 @@
         android:id="@+id/salary_year"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
         android:text="Год"/>
     <TextView
         android:id="@+id/salary_month"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
         android:text="Месяц"/>
     <TextView
         android:id="@+id/salary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
         android:text="Зарплата"/>
+    <TextView
+        android:id="@+id/expenses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Затраты"/>
+    <TextView
+        android:id="@+id/profit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Доход"/>
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"

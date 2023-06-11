@@ -9,13 +9,16 @@ interface SalaryDao {
     @Query("SELECT * FROM SalaryEntity ORDER BY date ASC")
     fun getSalaries(): LiveData<List<SalaryEntity>>
 
+    @Query("SELECT * FROM SalaryEntity WHERE id = :id")
+    fun getSalaryById(id: String) : LiveData<SalaryEntity?>
+
     @Insert
     fun addSalary(salary: SalaryEntity)
 
     @Update
-    fun updateSalary(salary: SalaryEntity)
+    fun updateSalary(salary: SalaryEntity?)
 
     @Delete
-    fun deleteSalary(salary: SalaryEntity)
+    fun deleteSalary(salary: SalaryEntity?)
 
 }

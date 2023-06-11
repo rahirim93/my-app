@@ -24,19 +24,21 @@ class MyAppRepository private constructor(context: Context){
 
     fun getSalaries(): LiveData<List<SalaryEntity>> = salaryDao.getSalaries()
 
+    fun getSalaryById(id: String): LiveData<SalaryEntity?> = salaryDao.getSalaryById(id)
+
     fun addSalary(salary: SalaryEntity) {
         executor.execute {
             salaryDao.addSalary(salary)
         }
     }
 
-    fun updateSalary(salary: SalaryEntity){
+    fun updateSalary(salary: SalaryEntity?){
         executor.execute {
             salaryDao.updateSalary(salary)
         }
     }
 
-    fun deleteSalary(salary: SalaryEntity){
+    fun deleteSalary(salary: SalaryEntity?){
         executor.execute {
             salaryDao.deleteSalary(salary)
         }

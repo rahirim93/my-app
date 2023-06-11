@@ -1,15 +1,12 @@
 package com.example.myapp.moneyActivity
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.view.forEach
 import com.example.myapp.databinding.ActivityMoneyBinding
-import kotlinx.android.synthetic.main.activity_money.view.*
 
 class SharedHelper(
     private val binding: ActivityMoneyBinding,
@@ -19,12 +16,13 @@ class SharedHelper(
 
     private val listView = mutableListOf<View>()
 
+
     init {
         makeListView()
     }
 
     private fun makeListView() {
-        binding.root.firstLinearLayout.forEach { it1 ->
+        binding.firstLinearLayout.forEach { it1 ->
             if (it1 is LinearLayout) {
                 it1.forEach {
                     if (it is EditText) {
@@ -33,6 +31,7 @@ class SharedHelper(
                 }
             }
         }
+
         listView.add(binding.checkBox)
     }
 

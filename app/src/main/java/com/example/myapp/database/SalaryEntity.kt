@@ -7,4 +7,5 @@ import java.util.*
 @Entity
 data class SalaryEntity(@PrimaryKey var id: UUID = UUID.randomUUID(),
                         var date: Calendar = Calendar.getInstance(),
-                        var salary: Int = 0)
+                        var salary: Int = 0,
+                        var expenses: Int? = 0)
