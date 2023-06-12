@@ -41,7 +41,8 @@
             android:layout_weight="1"
             android:inputType="number"
             android:imeOptions="actionDone"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:selectAllOnFocus="true" />
         <EditText
             android:id="@+id/editTextCooked"
             android:layout_width="0dp"
@@ -49,7 +50,8 @@
             android:layout_weight="1"
             android:inputType="number"
             android:imeOptions="actionDone"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:selectAllOnFocus="true"/>
 
     </LinearLayout>
 
@@ -71,7 +73,8 @@
             android:hint="1ая порция"
             android:inputType="number"
             android:imeOptions="actionDone"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:selectAllOnFocus="true"/>
         <TextView
             android:id="@+id/textViewFirstPortion"
             android:gravity="center"
@@ -92,7 +95,8 @@
             android:hint="2ая порция"
             android:inputType="number"
             android:imeOptions="actionDone"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:selectAllOnFocus="true"/>
         <TextView
             android:id="@+id/textViewSecondPortion"
             android:gravity="center"
@@ -113,7 +117,8 @@
             android:hint="3ая порция"
             android:inputType="number"
             android:imeOptions="actionDone"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:selectAllOnFocus="true"/>
         <TextView
             android:id="@+id/textViewThirdPortion"
             android:gravity="center"
