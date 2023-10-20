@@ -6,16 +6,28 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapp.database.SalaryEntity
+import com.example.myapp.databinding.ActivityMainBinding
 import com.example.myapp.moneyActivity.MoneyActivity
 import com.example.myapp.pastaActivity.PastaActivity
 import com.example.myapp.traningTimer.TrainingActivity
 import com.google.android.material.slider.Slider
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import java.io.File
+import java.io.FileWriter
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
+import androidx.lifecycle.Observer
+import java.io.BufferedReader
+import java.io.FileReader
+import java.io.InputStream
+
 
 /** Текущая задача установка будильника с главного экрана
  * 1) Подготовить код для установки будильника
@@ -42,9 +54,89 @@ class MainActivity : AppCompatActivity() {
     private lateinit var button5: Button
     ///// Переменные для будильника
 
+    private lateinit var binding: ActivityMainBinding
+
+    private val myAppViewModel: MyAppViewModel by viewModels()
+
+    private lateinit var listSalaries: List<SalaryEntity>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val salaryObserver = Observer<List<SalaryEntity>>{salaries ->
+            listSalaries = salaries
+        }
+        myAppViewModel.listSalariesLiveData.observe(this, salaryObserver)
+
+
+        binding.buttonExport.setOnClickListener {
+            val file = File(filesDir, "testFile.txt")
+            val csvWriter = FileWriter(file, true)
+            listSalaries.forEach {
+                csvWriter.write("${it.id},${it.date.timeInMillis},${it.salary},${it.expenses}\n")
+            }
+            csvWriter.close()
+
+            filesDir.listFiles().forEach {
+                log("${it.name}")
+            }
+        }
+
+        binding.buttonImport.setOnClickListener {
+            val file = File(filesDir, "testFile.txt")
+            val reader = FileReader(file)
+            val bufferedReader = BufferedReader(reader)
+            //val data = bufferedReader
+            try {
+                while (true) {
+                    var data = bufferedReader.readLine()
+                    Log.d("rahirim", data)
+                    var dataSplit = data.split(",")
+
+                    var salaryEntity = SalaryEntity()
+
+                    val calendar = Calendar.getInstance()
+                    calendar.timeInMillis = dataSplit[1].toLong()
+                    salaryEntity.date = calendar
+
+                    salaryEntity.salary = dataSplit[2].toInt()
+
+                    salaryEntity.expenses = dataSplit[3].toIntOrNull()
+
+                    Log.d("rahirim", "${salaryEntity.salary}\t\t${salaryEntity.expenses}")
+
+                    myAppViewModel.addSalary(salaryEntity)
+
+//                    if (data != null) {
+//                        var dataSplit = data.split(",")
+//                        var salaryEntity = SalaryEntity()
+//
+//                        val calendar = Calendar.getInstance()
+//                        calendar.timeInMillis = dataSplit[1].toLong()
+//                        salaryEntity.date = calendar
+//
+//                        salaryEntity.salary = dataSplit[2].toInt()
+//
+//
+//                        salaryEntity.expenses = dataSplit[3].toInt()
+//
+//
+//                    } else {
+//                        break
+//                    }
+                }
+            } catch (e: Exception) {
+                e.stackTrace
+            }
+            bufferedReader.close()
+
+        }
+
+
 
         init()
 

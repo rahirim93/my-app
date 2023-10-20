@@ -60,14 +60,18 @@
         app:layout_constraintTop_toBottomOf="@+id/button5">
 
         <Button
+            android:id="@+id/buttonExport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="test" />
 
         <Button
+            android:id="@+id/buttonImport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="import" />
 
         <Button
             android:layout_width="wrap_content"
