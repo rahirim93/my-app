@@ -80,7 +80,7 @@ class EndlessService : Service(), SensorEventListener {
         val notification = createNotification().build()
         startForeground(1, notification)
         mSensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
-        mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION)
+        mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION)!!
         mSensorManager.registerListener(this, mOrientation, SensorManager.SENSOR_DELAY_UI)
         @Suppress("DEPRECATION")
         vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator

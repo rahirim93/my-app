@@ -130,7 +130,7 @@ class TrainingActivity : AppCompatActivity(), SensorEventListener {
         xzView = findViewById(R.id.xzValue)
         zyView = findViewById(R.id.zyValue)
         mSensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
-        mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION)
+        mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION)!!
         mSensorManager.registerListener(this, mOrientation, SensorManager.SENSOR_DELAY_UI)
 
         notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
