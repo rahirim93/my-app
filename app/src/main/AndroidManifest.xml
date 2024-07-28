@@ -42,12 +42,6 @@
             android:name=".CerealActivity"
             android:exported="false" />
         <activity
-            android:name=".StepsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".traningTimer.TrainingActivity"
-            android:exported="true" />
-        <activity
             android:name=".moneyActivity.MoneyActivity"
             android:exported="true" />
         <activity
@@ -78,11 +72,6 @@
             android:name=".bluetoothTimer.BlueTimerReceiver"
             android:enabled="true"
             android:exported="true" />
-
-        <service
-            android:name=".traningTimer.traningService.EndlessService"
-            android:enabled="true"
-            android:exported="false"></service>
     </application>
 
 </manifest>

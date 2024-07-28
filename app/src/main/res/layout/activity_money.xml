@@ -106,7 +106,8 @@
                 android:gravity="center"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:autofillHints="" />
+                android:autofillHints=""
+                android:selectAllOnFocus="true"/>
 
             <EditText
                 android:hint="*"
@@ -117,7 +118,8 @@
                 android:gravity="center"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:autofillHints="" />
+                android:autofillHints=""
+                android:selectAllOnFocus="true" />
 
 
             <EditText
@@ -128,7 +130,8 @@
                 android:gravity="center"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:autofillHints="" />
+                android:autofillHints=""
+                android:selectAllOnFocus="true"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -147,7 +150,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:imeOptions="actionDone"
-                android:inputType="number" />
+                android:inputType="number"
+                android:selectAllOnFocus="true"/>
 
 
         </LinearLayout>
@@ -333,7 +337,8 @@
                 android:gravity="center"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:autofillHints="" />
+                android:autofillHints=""
+                android:selectAllOnFocus="true"/>
 
 
             <EditText
@@ -344,7 +349,8 @@
                 android:gravity="center"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:autofillHints="" />
+                android:autofillHints=""
+                android:selectAllOnFocus="true"/>
 
             <EditText
                 android:id="@+id/editTextCharge3"
@@ -354,7 +360,8 @@
                 android:gravity="center"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:autofillHints="" />
+                android:autofillHints=""
+                android:selectAllOnFocus="true"/>
 
             <EditText
                 android:id="@+id/editTextCharge4"
@@ -364,17 +371,19 @@
                 android:gravity="center"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:autofillHints="" />
+                android:autofillHints=""
+                android:selectAllOnFocus="true"/>
 
             <EditText
                 android:id="@+id/editTextCharge5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:gravity="center"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:autofillHints="" />
+                android:selectAllOnFocus="true"/>
         </LinearLayout>
 
         <LinearLayout
@@ -452,12 +461,6 @@
             android:layout_height="30dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="200dp" />
-
-        <TextView
-            android:id="@+id/textViewTimeStillUpdate"
-            android:layout_marginStart="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

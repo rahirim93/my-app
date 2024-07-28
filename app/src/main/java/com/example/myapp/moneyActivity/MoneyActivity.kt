@@ -54,13 +54,6 @@ class MoneyActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
         countMoney(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) // Расчет при запуске приложения
 
-        timeStillUpdate()
-    }
-
-    private fun timeStillUpdate() {
-        val calendarNow = Calendar.getInstance()
-        val daysStillUpdate = (calendarNow.timeInMillis - calendarUpdate.timeInMillis) / 86_400_000
-        binding.textViewTimeStillUpdate.text = "Дней с момента обновления: $daysStillUpdate."
     }
 
     private fun seekBarsInit() {
