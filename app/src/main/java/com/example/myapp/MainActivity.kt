@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import androidx.lifecycle.Observer
+import com.example.myapp.settingsActivity.SettingsActivity
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.InputStream
@@ -146,6 +147,7 @@ class MainActivity : AppCompatActivity() {
         itemList.add("Макароны")
         itemList.add("Заплата")
         itemList.add("Таймер")
+        itemList.add("Настройки")
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, itemList)
         listView.adapter = adapter
@@ -170,6 +172,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 4 -> {
                     val intent = Intent(this, TrainingActivity::class.java)
+                    startActivity(intent)
+                }
+                5 -> {
+                    val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                 }
             }

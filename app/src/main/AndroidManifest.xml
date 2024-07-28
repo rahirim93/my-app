@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
@@ -22,7 +22,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Base.Theme.MyApp" >
+        android:theme="@style/Base.Theme.MyApp">
+        <activity
+            android:name=".settingsActivity.SettingsActivity"
+            android:exported="false" />
         <activity
             android:name=".bluetoothTimer.BluetoothActivity"
             android:exported="false" />
@@ -34,16 +37,16 @@
             android:exported="false" />
         <activity
             android:name=".pastaActivity.PastaActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".CerealActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".StepsActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".traningTimer.TrainingActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".moneyActivity.MoneyActivity"
             android:exported="true" />
@@ -57,20 +60,29 @@
             </intent-filter>
         </activity>
 
+        <provider
+            android:authorities="com.example.myapp.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths"/>
+        </provider>
+
         <receiver
             android:name=".Receiver"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
         <receiver
             android:name=".bluetoothTimer.BlueTimerReceiver"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
 
         <service
             android:name=".traningTimer.traningService.EndlessService"
             android:enabled="true"
-            android:exported="false">
-        </service>
+            android:exported="false"></service>
     </application>
 
 </manifest>

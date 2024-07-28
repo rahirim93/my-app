@@ -11,5 +11,9 @@ class MyAppViewModel: ViewModel() {
         salaryRepository.addSalary(salary)
     }
 
+    fun deleteDalary(salary: SalaryEntity) {
+        salaryRepository.deleteSalary(salary)
+    }
+
     val listSalariesLiveData = salaryRepository.getSalaries()
 }
